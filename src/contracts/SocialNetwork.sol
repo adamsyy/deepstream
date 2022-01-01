@@ -27,5 +27,10 @@ event PostCreated(uint id, string content, uint tipAmount, address owner);
 posts[postCount]=Post(postCount,_content,0,msg.sender);
 emit PostCreated(postCount,_content,0,msg.sender);
 
-   }   
+   }  
+
+   function tipPost(uint _id)public{
+const post = await posts(_id);
+
+   } 
 }          
