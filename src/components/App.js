@@ -3,6 +3,7 @@ import Web3 from 'web3';
 import logo from '../logo.png';
 import './App.css';
 import Navbar from './Navbar';
+import SocialNetwork from '../abis//SocialNetwork.json';
 class App extends Component {
 
   async componentWillMount() {
@@ -44,6 +45,7 @@ constructor(props){
     return (
       <div>
         <Navbar account={this.state.account}/>
+
         <div className="container-fluid mt-5">
           <div className="row">
             <main role="main" className="col-lg-12 d-flex text-center">
