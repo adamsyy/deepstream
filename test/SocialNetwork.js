@@ -29,22 +29,32 @@ contract('SocialNetwork',([deployer,author,tipper]) => {
 
 
     describe('posts',async()=>{
+        before(async()=>{
+
+            result=await socialNetwork.createPost('first post ahne',{from:author});
+            console.log(author);
+            postCount=await socialNetwork.postCount();
+        })
+
         let result,postCount;
 it('creates posts',async()=>{
-result=await socialNetwork.createPost('first post ahne',{from:author});
-postCount=await socialNetwork.postCount();
 assert.equal(postCount,1);
 const event=result.logs[0].args;
 assert.equal(event.id.toNumber(), postCount.toNumber(), 'id is correct')
 assert.equal(event.content, 'first post ahne', 'content is correct')
 assert.equal(event.tipAmount, '0', 'tip amount is correct')
 
-
 //incase no content in post
 await socialNetwork.createPost('',{from:author}).should.be.rejected;
 
 })
 it('lists posts',async()=>{
+    const post=await socialNetwork.posts(postCount);
+    assert.equal(post.id.toNumber(), postCount.toNumber(), 'id is correct')
+assert.equal(post.content, 'first post ahne', 'content is correct')
+assert.equal(post.tipAmount, '0', 'tip amount is correct')
+
+
 
 })
 it('allows users to tip posts',async()=>{
