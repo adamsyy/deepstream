@@ -58,7 +58,7 @@ assert.equal(post.tipAmount, '0', 'tip amount is correct')
 
 })
 it('allows users to tip posts',async()=>{
-
+result=await socialNetwork.tipPost(postCount,{from:tipper,value:web3.utils.toWei('1','Ether')});
 })
     })
 })
