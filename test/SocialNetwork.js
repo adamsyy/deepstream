@@ -58,7 +58,13 @@ assert.equal(post.tipAmount, '0', 'tip amount is correct')
 
 })
 it('allows users to tip posts',async()=>{
-result=await socialNetwork.tipPost(postCount,{from:tipper,value:web3.utils.toWei('1','Ether')});
+result=await socialNetwork.tipPost(postCount,{from:tipper,value:web3.utils.toWei('10','Ether')});
+const event=result.logs[0].args;
+assert.equal(event.id.toNumber(), postCount.toNumber(), 'id is correct')
+assert.equal(event.content, 'first post ahne', 'content is correct')
+assert.equal(event.tipAmount, '10000000000000000000', 'tip amount is correct')
+
+
 })
     })
 })
