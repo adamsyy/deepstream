@@ -4,7 +4,7 @@ const SocialNetwork = artifacts.require("./SocialNetwork.sol");
 
 require("chai").use(require("chai-as-promised")).should();
 
-contract('SocialNetwork',(accounts) => {
+contract('SocialNetwork',([deployer,author,tipper]) => {
     let socialNetwork;
     before(async()=>{
 
@@ -25,5 +25,30 @@ contract('SocialNetwork',(accounts) => {
             assert.equal(name,"adam ahne")
         })
 
+    })
+
+
+    describe('posts',async()=>{
+        let result,postCount;
+it('creates posts',async()=>{
+result=await socialNetwork.createPost('first post ahne',{from:author});
+postCount=await socialNetwork.postCount();
+assert.equal(postCount,1);
+const event=result.logs[0].args;
+assert.equal(event.id.toNumber(), postCount.toNumber(), 'id is correct')
+assert.equal(event.content, 'first post ahne', 'content is correct')
+assert.equal(event.tipAmount, '0', 'tip amount is correct')
+
+
+//incase no content in post
+await socialNetwork.createPost('',{from:author}).should.be.rejected;
+
+})
+it('lists posts',async()=>{
+
+})
+it('allows users to tip posts',async()=>{
+
+})
     })
 })
